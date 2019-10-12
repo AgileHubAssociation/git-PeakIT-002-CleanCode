@@ -13,39 +13,35 @@ namespace StrategiesForMethods_Demo
             InitializeComponent();
         }
 
+        private bool AreInputFieldsMissing()
+        {
+            return string.IsNullOrEmpty(txtFirstNumber.Text)
+                    || string.IsNullOrEmpty(txtSecondNumber.Text);
+        }
         private void btnAddNumbers_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                int firstNumber;
-                int secondNumber;
-                int sum;
-
-                if (string.IsNullOrEmpty(txtFirstNumber.Text) == false)
-                {
-                    firstNumber = int.Parse(txtFirstNumber.Text);
-
-                    if (string.IsNullOrEmpty(txtSecondNumber.Text) == false)
-                    {
-                        secondNumber = int.Parse(txtSecondNumber.Text);
-
-                        sum = firstNumber + secondNumber;
-                        textBlockSum.Text = sum.ToString();
-                    }
-                    else
-                    {
-                        throw new Exception("You must specify a value for the input numbers");
-                    }
-                }
-                else
+                if (AreInputFieldsMissing())
                 {
                     throw new Exception("You must specify a value for the input numbers");
                 }
+                
+                textBlockSum.Text = ComputeSum().ToString();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "An error has occured", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private int ComputeSum()
+        {
+            int firstNumber = int.Parse(txtFirstNumber.Text);
+            int secondNumber = int.Parse(txtSecondNumber.Text);
+
+            int sum = firstNumber + secondNumber;
+            return sum;
         }
     }
 }

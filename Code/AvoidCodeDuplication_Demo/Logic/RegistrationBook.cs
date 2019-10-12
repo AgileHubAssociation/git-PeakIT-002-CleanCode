@@ -19,12 +19,12 @@ namespace AvoidCodeDuplication_Demo.Logic
             persons.Add(person);
         }
 
-        public int CountFemales()
+        public int CountByGender(Gender gender)
         {
             int count = 0;
             foreach (var person in persons)
             {
-                if (person.Gender == Gender.Female)
+                if (person.Gender == gender)
                 {
                     count++;
                 }
@@ -32,17 +32,14 @@ namespace AvoidCodeDuplication_Demo.Logic
             return count;
         }
 
+        public int CountFemales()
+        {
+            return CountByGender(Gender.Female);
+        }
+
         public int CountMales()
         {
-            int count = 0;
-            foreach (var person in persons)
-            {
-                if (person.Gender == Gender.Male)
-                {
-                    count++;
-                }
-            }
-            return count;
+            return CountByGender(Gender.Male);
         }
     }
 }
